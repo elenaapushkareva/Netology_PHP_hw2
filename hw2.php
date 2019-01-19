@@ -1,145 +1,89 @@
 <?php  
-$animals = array(
-    "Africa" => array("Giraffa camelopardalis", "Loxodonta"),
-    "Antarctica" => array("Mesonychoteuthis hamiltoni"),
-    "Australia" => array("Macropus","Threskiornis spinicollis"),
-    "Eurasia" => array("Pteromys volans", "Bison bonasus", "Apodemus agrarius"),
-    "North America" => array("Martes americana", "Bison bison"),
-    "South America" => array("Eunectes murinus")
+// Объявляем исходный массив с животными
+$a = array(
+    "Europe" => array("Emys orbicularis", "Capreólus capreólus", "Sardina pilchardus"),
+    "Africa" => array("Tropicranus albocristatus", "Canis anthus", "Galerella"),
+    "Australia" => array("Natator depressus", "Tadorna tadornoides", "Tyto novaehollandiae"),
+    "North America" => array("Sylvilagus", "Vulpes macrotis"),
+    "Asia" => array("Ocyceros", "Acinonyx jubatus venaticus", "Tamias sibiricus")
 );
-/*function mySearch($arr){
-    foreach($arr as $key => $val){
-        foreach($val as $v){
-            if(preg_match("/\s+/", $v)){
-                echo $key." ".$v."\n";
-                
-            }
+//Объявляем массив с названиями, состоящими из двух слов
+$b = array();
+//Наполняем его элементами
+foreach($a as $k => $v) {
+    $continent = $k; 
+    foreach($v as $animal) {
+        $c = substr_count($animal, ' ');
+        if ($c == 1) {
+            array_push($b, $animal);
         }
     }
 }
 
 
+$str = implode(" ", $b);
 
-print_r($animals);
-mySearch($animals); */
+$abc = explode(" ", $str);
+//print_r($abc);
 
-$an2 = array();
+//Объявляем массивы для разделения названия на первое и второе слово
+$ab1 = array();
+$ab2 = array();
 
-foreach($animals as $key => $val){
-        foreach($val as $v){
-            if(preg_match("/\s+/", $v)){
-                /*echo $key." ".$v."\n";*/
-                $an2[] = $v;
-            }
-        }
-    }
-
-print_r($an2);
-
-$a = array(1, 2, 3, 17);
-
-foreach ($a as $v) {
-    echo "Текущее значение переменной \$a: $v.\n";
-}
-
-$a = array();
-$a[0][0] = "a";
-$a[0][1] = "b";
-$a[1][0] = "y";
-$a[1][1] = "z";
-
-foreach ($animals as $v1) {
-    foreach ($v1 as $v2) {
-        echo "$v2\n";
+foreach($abc as $k1 => $v1) {
+        if (($k1 % 2) == 0) {
+            array_push($ab1, $v1); //Для записи первого слова
+        }else{
+            array_push($ab2, $v1); //Для записи второго слова
+    
     }
 }
+//print_r($ab1);
+//print_r($ab2);
 
-$continents = [
-    'Africa' => [
-        'African elephant',
-        'Hippo',
-        'Giraffe',
-        'Crocodile',
-        'Spotted hyena',
-        'Zebra',
-        'Chimpanzee',
-        'Python',
-        'Scorpio',
-        'Canna',
-    ],
-    'Eurasia' => [
-        'Tapir',
-        'Snow leopard',
-        'Varan',
-        'Big panda',
-        'Capercaillie',
-        'Pheasant',
-        'Mantis',
-        'Brown bear',
-        'Sable',
-        'Wolf'
-    ]
-];
- 
-$name_two_words = [];
-foreach($continents as $continent => $animals){
-    foreach($animals as $animal){
-        $all_animals= [];
-        $anim = explode(' ', $animal);
-        $all_animals[]=$anim;
-     
-        foreach($all_animals as $k){
-            if(count($k) === 2){
-                $comma_separated = implode(",", $k);
-                $str = str_replace(',', ' ', $comma_separated);
-                $name_two_words[]=$str;
-            }
-        }
-    }
-}
- 
-echo '<pre>';
-var_dump($name_two_words);
-echo '<pre>';
- 
-foreach($name_two_words as $name){
-    $parts = explode(' ', $name);
-    $first[] = $parts[0];
-    $second[] = $parts[1];
-}
-/*
-echo '<pre>';
-var_dump($first);
-var_dump($second);
-echo '<pre>';
-*/
-$random_first_word = [];
- 
-while (count($random_first_word) < count($name_two_words)){
-   $proverka = $first[rand(0, count($name_two_words)-1)];
-    if (!in_array($proverka, $random_first_word)) {
-        array_push($random_first_word, $proverka);
-    }
-}
- 
-//var_dump($random_first_word);
- 
-$random_second_word = [];
- 
-while (count($random_second_word) < count($name_two_words)){
-    $proverka = $second[rand(0, count($name_two_words)-1)];
-    if (!in_array($proverka, $random_second_word)) {
-        array_push($random_second_word, $proverka);
-    }
-}
- 
-//var_dump($random_second_word );
- 
-$final_result = [];
- 
-for($i = 0; $i < count($name_two_words); $i++){
-    $final_result[]= $random_first_word[$i] . ' ' . $random_second_word[$i];  
-}
- 
-var_dump($final_result);
+//Перемешиваем названия в массивах
+shuffle($ab1);
+shuffle($ab2);
+//print_r($ab1);
+
 ?>
+<!DOCTYPE> 
+<html lang="ru">
+    <head>
+        <title>
+            Жестокое обращение с животными
+        </title>
+        <meta charset="utf-8">
+        <style>
+            body {
+                font-family: sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>
+            Животные и материки
+        </h1>
+        <h2>
+            1. Исходный массив 
+        </h2>
+        <p>
+            <?php print_r($a); 
+            ?></p>
+        <h2>
+            2. Названия животных из двух слов 
+        </h2>
+        <p>
+         <?php foreach ($b as $key => $value) {
+            echo "$value <br />";
+         } ?></p>
+         <h2>3. Фантазийные названия животных</h2>
+         <p><?php 
+         foreach($ab1 as $k2 => $v2) {
+      echo $v2.' '.$ab2[$k2]."<br/ >"; }
+      ?>
+         </p>
+
+
+    </body>
+</html>
